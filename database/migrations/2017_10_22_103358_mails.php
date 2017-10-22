@@ -15,6 +15,7 @@ class Mails extends Migration
             $table->string('sender');
             $table->string('subject');
             $table->text('message');
+            $table->integer('time_sent', false, true);
             $table->timestamps();
         });
     }
