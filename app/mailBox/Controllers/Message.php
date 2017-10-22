@@ -23,7 +23,7 @@ class Message extends Controller
         }
 
         if (null !== $request->get('limit')) {
-            $message->offset($request->get('limit'));
+            $message->limit($request->get('limit'));
         }
 
         return $message->get();

@@ -3,6 +3,8 @@
 namespace App\mailBox\Services;
 
 
+use App\mailBox\Exceptions\MessageException;
+
 class MessageService extends MessageAbstract
 {
 
@@ -24,7 +26,29 @@ class MessageService extends MessageAbstract
 
     public function get()
     {
-        return [$this->offset, $this->limit];
+        $this->validate();
+
+        return $this->model->skip($this->offset)->take($this->limit)
+            ->get();
+    }
+
+    /**
+     * strategy validation
+     * @return mixed
+     * @exception InvalidArgument
+     */
+    function validate()
+    {
+
+        if ($this->offset < 0) {
+            throw new MessageException('offset cannot be smaller than zero, given:' . $this->offset);
+        }
+
+        if ($this->limit < 0) {
+            throw new MessageException('limit cannot be smaller than zero, given:' . $this->limit);
+        }
+
+        return true;
     }
 
     /**
@@ -34,7 +58,7 @@ class MessageService extends MessageAbstract
      */
     public function offset($offset)
     {
-        $this->offset = $offset;
+        $this->offset = intval($offset);
 
         return $this;
     }
@@ -45,19 +69,8 @@ class MessageService extends MessageAbstract
      */
     public function limit($limit)
     {
-        $this->limit = $limit;
+        $this->limit = intval($limit);
 
         return $this;
-    }
-
-
-    /**
-     * strategy validation
-     * @return mixed
-     * @exception InvalidArgument
-     */
-    function validate()
-    {
-        // TODO: Implement validate() method.
     }
 }

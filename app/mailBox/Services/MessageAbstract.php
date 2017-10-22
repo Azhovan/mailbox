@@ -2,6 +2,8 @@
 
 namespace App\mailBox\Services;
 
+use App\mailBox\Model\Mail;
+
 abstract class MessageAbstract
 {
     /** @var integer */
@@ -12,6 +14,8 @@ abstract class MessageAbstract
     protected $offset;
     /** @var  integer */
     protected $limit;
+    /** @var  Mail */
+    protected $model;
 
     /**
      * MessageAbstract constructor.
@@ -20,6 +24,7 @@ abstract class MessageAbstract
     {
         $this->offset = self::DEFAULT_OFFSET;
         $this->limit = self::DEFAULT_LIMIT;
+        $this->model = new Mail;
     }
 
     /**
