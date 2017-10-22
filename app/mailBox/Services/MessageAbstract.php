@@ -8,12 +8,19 @@ abstract class MessageAbstract
 {
     /** @var integer */
     const DEFAULT_OFFSET = 0;
+
     /** @var integer */
     const DEFAULT_LIMIT = 100;
+
     /** @var  integer */
     protected $offset;
+
     /** @var  integer */
     protected $limit;
+
+    /** @var  string */
+    protected $status;
+
     /** @var  Mail */
     protected $model;
 
@@ -23,7 +30,9 @@ abstract class MessageAbstract
     public function __construct()
     {
         $this->offset = self::DEFAULT_OFFSET;
+
         $this->limit = self::DEFAULT_LIMIT;
+
         $this->model = new Mail;
     }
 

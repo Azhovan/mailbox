@@ -11,6 +11,9 @@ class MessageService extends MessageAbstract
     /** @var MessageService instance */
     public static $instance = null;
 
+    /** @var  array */
+    private $condition;
+
     /**
      * @return MessageService
      */
@@ -23,12 +26,19 @@ class MessageService extends MessageAbstract
         return self::$instance;
     }
 
-
+    /**
+     * get the result
+     * @return mixed
+     */
     public function get()
     {
         $this->validate();
 
-        return $this->model->skip($this->offset)->take($this->limit)
+        return $this->model
+            ->when($this->status, function ($query) {
+                $query->where('status', $this->status);
+            })
+            ->skip($this->offset)->take($this->limit)
             ->get();
     }
 
@@ -73,4 +83,17 @@ class MessageService extends MessageAbstract
 
         return $this;
     }
+
+    /**
+     * @param $status
+     * @return $this
+     */
+    public function status($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+
 }

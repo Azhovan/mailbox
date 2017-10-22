@@ -26,6 +26,7 @@ return array(
     'App\\Providers\\RouteServiceProvider' => $baseDir . '/app/Providers/RouteServiceProvider.php',
     'App\\User' => $baseDir . '/app/User.php',
     'App\\mailBox\\Controllers\\Message' => $baseDir . '/app/mailBox/Controllers/Message.php',
+    'App\\mailBox\\Exceptions\\MessageException' => $baseDir . '/app/mailBox/Exceptions/MessageException.php',
     'App\\mailBox\\Model\\Mail' => $baseDir . '/app/mailBox/Model/Mail.php',
     'App\\mailBox\\Services\\MessageAbstract' => $baseDir . '/app/mailBox/Services/MessageAbstract.php',
     'App\\mailBox\\Services\\MessageService' => $baseDir . '/app/mailBox/Services/MessageService.php',
