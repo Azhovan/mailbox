@@ -2,6 +2,7 @@
 
 namespace App\mailBox\Controllers;
 
+use App\APM\Response\ResponseFactory;
 use App\mailBox\Services\MessageService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -25,10 +26,10 @@ class MessageController extends Controller
      * Display a listing of the messageServices
      *
      * @param Request $request
-     * @param integer $messageServiceId
+     * @param integer $messageId
      * @return null
      */
-    public function index(Request $request, int $messageServiceId =  0)
+    public function index(Request $request, int $messageId = 0)
     {
 
         if (null !== $request->get('offset')) {
@@ -43,11 +44,20 @@ class MessageController extends Controller
             $this->messageService->status($request->get('status'));
         }
 
-        if (null !== $messageServiceId) {
-            $this->messageService->id($messageServiceId);
+        if (null !== $messageId) {
+            $this->messageService->id($messageId);
         }
 
-        return $this->messageService->get();
+        $result = $this->messageService->get();
+
+        return ResponseFactory::create(function () use ($request, $messageId, $result) {
+            return collect([
+                'data' => $result,
+                'messageId' => $messageId,
+                'status' => $request->get('status'),
+                'type' => 'email'
+            ]);
+        });
     }
 
     /**

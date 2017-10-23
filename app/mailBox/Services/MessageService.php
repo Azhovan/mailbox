@@ -36,7 +36,7 @@ class MessageService extends MessageAbstract implements MessageConfig
     {
         $this->validate();
 
-        $result =  $this->model
+        return $this->model
             ->when($this->status, function ($query) {
                 $query->where(MessageConfig::MESSAGE_STATUS_FIELD, $this->status);
             })
@@ -45,6 +45,7 @@ class MessageService extends MessageAbstract implements MessageConfig
             })
             ->skip($this->offset)->take($this->limit)
             ->get()->toArray();
+
     }
 
     /**
