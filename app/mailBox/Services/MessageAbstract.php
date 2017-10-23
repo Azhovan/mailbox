@@ -2,6 +2,7 @@
 
 namespace App\mailBox\Services;
 
+use App\mailBox\Exceptions\MessageException;
 use App\mailBox\Model\Mail;
 
 abstract class MessageAbstract
@@ -24,6 +25,13 @@ abstract class MessageAbstract
     /** @var  Mail */
     protected $model;
 
+    /** @var array all actions which are allowed to do on messages */
+    protected $allowedActions = array(
+        'read',
+        'unread',
+        'archived'
+    );
+
     /**
      * MessageAbstract constructor.
      */
@@ -34,20 +42,35 @@ abstract class MessageAbstract
         $this->limit = self::DEFAULT_LIMIT;
 
         $this->model = new Mail;
+
     }
 
     /**
      * the way of strategy to get messages
      * @return mixed
      */
-    abstract function get();
+    abstract function get(): array;
 
     /**
      * strategy validation
      * @return mixed
      * @exception InvalidArgument
      */
-    abstract function validate();
+    abstract function validate(): bool;
+
+    /**
+     * @param $action
+     * @return bool| MessageException
+     * @exception MessageException
+     */
+    protected function isValidAction($action)
+    {
+        if (!in_array($action, $this->allowedActions)) {
+            throw new MessageException('Action does not allowed, given action : ' . $action);
+        }
+
+        return true;
+    }
 
 
 }

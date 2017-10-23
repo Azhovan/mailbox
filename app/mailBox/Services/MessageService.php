@@ -4,20 +4,22 @@ namespace App\mailBox\Services;
 
 
 use App\mailBox\Exceptions\MessageException;
+use App\mailBox\Services\Config\MessageConfig;
 
-class MessageService extends MessageAbstract
+class MessageService extends MessageAbstract implements MessageConfig
 {
 
     /** @var MessageService instance */
     public static $instance = null;
 
-    /** @var  array */
-    private $condition;
+    /** @var integer */
+    private $messageId;
+
 
     /**
      * @return MessageService
      */
-    public static function getInstance()
+    public static function getInstance(): self
     {
         if (is_null(self::$instance)) {
             self::$instance = new MessageService();
@@ -30,16 +32,19 @@ class MessageService extends MessageAbstract
      * get the result
      * @return mixed
      */
-    public function get()
+    public function get(): array
     {
         $this->validate();
 
         return $this->model
             ->when($this->status, function ($query) {
-                $query->where('status', $this->status);
+                $query->where(MessageConfig::MESSAGE_STATUS_FIELD, $this->status);
+            })
+            ->when($this->messageId, function ($query) {
+                $query->where(MessageConfig::MESSAGE_UID_FIELD, $this->messageId);
             })
             ->skip($this->offset)->take($this->limit)
-            ->get();
+            ->get()->toArray();
     }
 
     /**
@@ -47,7 +52,7 @@ class MessageService extends MessageAbstract
      * @return mixed
      * @exception InvalidArgument
      */
-    function validate()
+    function validate(): bool
     {
 
         if ($this->offset < 0) {
@@ -62,11 +67,27 @@ class MessageService extends MessageAbstract
     }
 
     /**
-     * set the offset of message response
-     * @param $offset
-     * @return $this
+     * update the custom message's status
+     * @param $messageId
+     * @param $action
      */
-    public function offset($offset)
+    public function update($messageId, $action)
+    {
+        $this->isValidAction($action);
+
+        return $this->model->where(MessageConfig::MESSAGE_UID_FIELD, $messageId)
+            ->update([
+                MessageConfig::MESSAGE_STATUS_FIELD => $action
+            ]);
+
+    }
+
+    /**
+     * set the offset of message response
+     * @param int $offset
+     * @return  MessageService
+     */
+    public function offset(int $offset): self
     {
         $this->offset = intval($offset);
 
@@ -74,10 +95,10 @@ class MessageService extends MessageAbstract
     }
 
     /**
-     * @param $limit
-     * @return $this
+     * @param int $limit
+     * @return MessageService
      */
-    public function limit($limit)
+    public function limit(int $limit): self
     {
         $this->limit = intval($limit);
 
@@ -86,11 +107,23 @@ class MessageService extends MessageAbstract
 
     /**
      * @param $status
-     * @return $this
+     * @return MessageService
      */
-    public function status($status)
+    public function status(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * if we need to get the specific message, we set its id
+     * @param int $id
+     * @return MessageService
+     */
+    public function id(int $id): self
+    {
+        $this->messageId = $id;
 
         return $this;
     }
