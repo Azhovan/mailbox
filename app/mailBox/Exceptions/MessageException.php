@@ -2,7 +2,9 @@
 
 namespace App\mailBox\Exceptions;
 
-class MessageException extends \InvalidArgumentException
+use InvalidArgumentException;
+
+class MessageException extends InvalidArgumentException
 {
 
 }

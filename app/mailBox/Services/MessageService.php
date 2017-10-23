@@ -36,7 +36,7 @@ class MessageService extends MessageAbstract implements MessageConfig
     {
         $this->validate();
 
-        return $this->model
+        $result =  $this->model
             ->when($this->status, function ($query) {
                 $query->where(MessageConfig::MESSAGE_STATUS_FIELD, $this->status);
             })
