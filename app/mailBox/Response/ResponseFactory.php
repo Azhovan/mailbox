@@ -5,6 +5,7 @@ namespace App\APM\Response;
 
 use App\mailBox\Exceptions\MessageRuntimeException;
 use Closure;
+use Exception;
 
 class ResponseFactory
 {
@@ -48,6 +49,8 @@ class ResponseFactory
             return $this->response($response);
 
         } catch (MessageRuntimeException $exception) {
+            throw $exception;
+        } catch (Exception $exception) {
             throw $exception;
         }
     }

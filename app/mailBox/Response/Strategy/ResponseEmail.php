@@ -48,7 +48,7 @@ class ResponseEmail extends ResponseAbstract
                     'updated_at' => $value['updated_at'],
                 ),
                 'links' => array(
-                    'self' => url('/messages/' . $value['uid'])
+                    'self' => url('api/messages/' . $value['uid'])
                 )
             );
         }
