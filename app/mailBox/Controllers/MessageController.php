@@ -50,14 +50,16 @@ class MessageController extends Controller
 
         $result = $this->messageService->get();
 
-        return ResponseFactory::create(function () use ($request, $messageId, $result) {
-            return collect([
+        return ResponseFactory::getInstance()->create(
+            array(
                 'data' => $result,
-                'messageId' => $messageId,
+                'id' => $messageId,
                 'status' => $request->get('status'),
-                'type' => 'email'
-            ]);
-        });
+                'requestType' => 'email'
+            )
+
+        );
+
     }
 
     /**
