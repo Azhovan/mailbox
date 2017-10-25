@@ -3,11 +3,15 @@
 use Illuminate\Http\Request;
 
 
-Route::group(['prefix' => 'messages'], function () {
+Route::group(['prefix' => 'v1'], function () {
 
-    // get all messages
-    Route::get('/{id?}', 'MessageController@index')->middleware('oberloBasicAuth');
+    Route::group(['prefix' => 'messages'], function () {
 
-    Route::put('/{id}/{action}', 'MessageController@update')->middleware('oberloBasicAuth');
+        // get all messages
+        Route::get('/{id?}', 'MessageController@index')->middleware('oberloBasicAuth');
+        Route::put('/{id}/{action}', 'MessageController@update')->middleware('oberloBasicAuth');
+
+    });
+
 
 });

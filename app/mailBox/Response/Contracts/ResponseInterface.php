@@ -5,6 +5,9 @@ namespace App\mailBox\Response\Contracts;
 interface ResponseInterface
 {
     /** @var string */
+    const API_VERSION = 'v1';
+
+    /** @var string */
     const NOT_FOUND_MESSAGE = 'There is no records matched with your request in our database';
 
     /** @var string */
