@@ -4,7 +4,6 @@ namespace App\APM\Response;
 
 
 use App\mailBox\Exceptions\MessageRuntimeException;
-use Closure;
 use Exception;
 
 class ResponseFactory

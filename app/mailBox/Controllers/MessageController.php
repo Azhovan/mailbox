@@ -3,6 +3,8 @@
 namespace App\mailBox\Controllers;
 
 use App\APM\Response\ResponseFactory;
+use App\mailBox\Exceptions\MessageException;
+use App\mailBox\Exceptions\MessageRuntimeException;
 use App\mailBox\Services\MessageService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -48,7 +50,16 @@ class MessageController extends Controller
             $this->messageService->id($messageId);
         }
 
-        $result = $this->messageService->get();
+        try {
+
+            $result = $this->messageService->get();
+
+        } catch (MessageRuntimeException $exception) {
+            $result = false;
+
+        } catch (MessageException $exception) {
+            $result = false;
+        }
 
         return ResponseFactory::getInstance()->create(
             array(
@@ -72,7 +83,16 @@ class MessageController extends Controller
      */
     public function update($id, $action)
     {
-        $result = $this->messageService->update($id, $action);
+        try {
+
+            $result = $this->messageService->update($id, $action);
+
+        } catch (MessageRuntimeException $exception) {
+            $result = false;
+
+        } catch (MessageException $exception) {
+            $result = false;
+        }
 
         return ResponseFactory::getInstance()->create(
             array(

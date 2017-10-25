@@ -2,7 +2,9 @@
 
 namespace App\APM\Response;
 
-abstract class ResponseAbstract
+use App\mailBox\Response\Contracts\ResponseInterface;
+
+abstract class ResponseAbstract implements ResponseInterface
 {
 
     /** @var  array */
@@ -16,18 +18,6 @@ abstract class ResponseAbstract
 
     /** @var  array */
     protected $error = array();
-
-    const NOT_FOUND_MESSAGE = 'There is no records matched with your request in our database';
-    const SUCCESSFULL_ACTION_MESSAGE = 'Your action successfully done';
-    const NOT_FOUND_STATUS = 400;
-    const NOT_FOUND_APP_CODE = 'BadRequest-400';
-
-    const SUCCESS_STATUS = 200;
-    const SUCCESS_APP_CODE = 'OK-200';
-
-    const UNSUCCESSFULL_TITLE = 'Failed';
-    const SUCCESSFULL_TITLE = 'Success';
-    const SUCCESS_ACTION = 1;
 
     public function __construct()
     {

@@ -33,6 +33,7 @@ return array(
     'App\\mailBox\\Exceptions\\MessageException' => $baseDir . '/app/mailBox/Exceptions/MessageException.php',
     'App\\mailBox\\Exceptions\\MessageRuntimeException' => $baseDir . '/app/mailBox/Exceptions/MessageRuntimeException.php',
     'App\\mailBox\\Model\\Mail' => $baseDir . '/app/mailBox/Model/Mail.php',
+    'App\\mailBox\\Response\\Contracts\\ResponseInterface' => $baseDir . '/app/mailBox/Response/Contracts/ResponseInterface.php',
     'App\\mailBox\\Response\\Strategy\\ResponseEmail' => $baseDir . '/app/mailBox/Response/Strategy/ResponseEmail.php',
     'App\\mailBox\\Services\\Config\\MessageConfig' => $baseDir . '/app/mailBox/Services/Config/MessageConfig.php',
     'App\\mailBox\\Services\\MessageAbstract' => $baseDir . '/app/mailBox/Services/MessageAbstract.php',
