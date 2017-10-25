@@ -2,13 +2,14 @@
 ### Installation 
 
 #### Prepare Project
-* clone this repository
-* go to root of the project and run the below commands.
+ clone this repository and go to root of the project and run the below commands : 
+ 
 * composer install 
 * composer dump-autoload -o 
 * php artisan key:generate
 
 #### seed database 
+in the root of the projects run below commands 
 * php artisan migrate
 * php artisan db:seed
 > by running the above commands data (messages_sample.json) will be inserted in the database and a user will be created for using the api, please use **username: test@oberlo.com** and **password: oberlo**
