@@ -14,6 +14,9 @@ in the root of the projects run below commands
 * php artisan db:seed
 > by running the above commands data (messages_sample.json) will be inserted in the database and a user will be created for using the api, please use **username: test@oberlo.com** and **password: oberlo**
 
+ #### Authentication
+ This project uses Basic Authentication, it means there is no saved sessions, and all requests should contains username and password
+ 
 #### run the project
 you can go to root of the project and use the command : **php artisan serv**
 (note : you may create any virtual host also)
@@ -63,8 +66,6 @@ examples :
  * GET **/api/messages/?offset=0&&limit=10&&status=read**    (this will get 10 first messages with status read )
  * GET **/api/v1/messages**  (get all messages)
  
- #### Authentication
- This project uses Basic Authentication, it means there is no saved sessions, and all request should contains username and password  
 
 #### Sample PostMan collection 
 [postmanLinks](https://www.getpostman.com/collections/915609b8bd2d9f310de9)
