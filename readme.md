@@ -58,9 +58,9 @@ the base url should be very simple and intuitive, so it just contains domain (**
 | *PUT*           | api/v1/messages/{uid}/{new status}                           | update the status of custom email with uid identifier and new status (read, unread, archived) |
 
 examples : 
- * PUT /api/v1/messages/24/archived
- * GET /api/messages/?offset=0&&limit=10&&status=read
- * GET /api/v1/messages 
+ * PUT **/api/v1/messages/24/archived**  (this will update the status of a mesage with id 24)
+ * GET **/api/messages/?offset=0&&limit=10&&status=read**    (this will get 10 first messages with status read )
+ * GET **/api/v1/messages**  (get all messages)
  
  #### Authentication
  This project uses Basic Authentication, it means there is no saved sessions, and all request should contains username and password  
