@@ -31,7 +31,7 @@ inside the app/mailBox you can find these files and folders :
 * **Response** // classes which are responsible to generate output based on different strategies
 * **Services** // message abstraction and it's services
 * 
-
+---- 
 #### Approach
 the approach of creating the api can be summarized as below
 ##### **Domain** 
@@ -64,3 +64,6 @@ examples :
  
  #### Authentication
  This project uses Basic Authentication, it means there is no saved sessions, and all request should contains username and password  
+
+#### Sample PostMan collection 
+[postmanLinks](https://www.getpostman.com/collections/915609b8bd2d9f310de9)
