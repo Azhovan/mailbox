@@ -61,3 +61,6 @@ examples :
  * PUT /api/v1/messages/24/archived
  * GET /api/messages/?offset=0&&limit=10&&status=read
  * GET /api/v1/messages 
+ 
+ #### Authentication
+ This project uses Basic Authentication, it means there is no saved sessions, and all request should contains username and password  
