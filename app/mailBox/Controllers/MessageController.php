@@ -55,6 +55,7 @@ class MessageController extends Controller
                 'data' => $result,
                 'id' => $messageId,
                 'status' => $request->get('status'),
+                'actionType' => 'get',
                 'requestType' => 'email'
             )
 
@@ -71,7 +72,17 @@ class MessageController extends Controller
      */
     public function update($id, $action)
     {
-        return $this->messageService->update($id, $action);
+        $result = $this->messageService->update($id, $action);
+
+        return ResponseFactory::getInstance()->create(
+            array(
+                'action' => $result,
+                'actionType' => 'update',
+                'id' => $id,
+                'requestType' => 'email'
+            )
+
+        );
     }
 
 

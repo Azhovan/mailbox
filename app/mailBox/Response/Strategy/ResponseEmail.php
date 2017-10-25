@@ -8,17 +8,39 @@ class ResponseEmail extends ResponseAbstract
 {
 
     /**
+     * generate response based on action
      * @param $data
      * @return ResponseAbstract
      */
     public function handle($data): ResponseAbstract
     {
-        if (!empty($data['data'])) {
+
+        // generate data block
+        if (isset($data['data']) && !empty($data['data'])) {
             $this->data($data);
+
         } else {
-            $this->status = 400;
-            $this->appCode = 'ERR-400';
-            $this->error();
+
+            // we had not data
+            // but we have a successful action by the way
+            if (isset($data['action']) && self::SUCCESS_ACTION == $data['action']) {
+                $this->error([
+                    'status' => self::SUCCESS_STATUS,
+                    'appCode' => self::SUCCESS_APP_CODE,
+                    'title' => self::SUCCESSFULL_TITLE,
+                    'details' => self::SUCCESSFULL_ACTION_MESSAGE
+                ]);
+
+            // we got error
+            } else {
+                $this->error([
+                    'status' => self::NOT_FOUND_STATUS,
+                    'appCode' => self::NOT_FOUND_APP_CODE,
+                    'title' => self::UNSUCCESSFULL_TITLE,
+                    'details' => self::NOT_FOUND_MESSAGE
+                ]);
+            }
+
         }
 
         return $this;
@@ -40,6 +62,7 @@ class ResponseEmail extends ResponseAbstract
                 'id' => $value['id'],
                 'attributes' => array(
                     'uid' => $value['uid'],
+                    'status' => $value['status'],
                     'sender' => $value['sender'],
                     'subject' => $value['subject'],
                     'message' => $value['message'],
@@ -58,15 +81,19 @@ class ResponseEmail extends ResponseAbstract
 
     /**
      * generate error block
+     * @param array $error
      * @return array
      */
-    protected function error(): array
+    protected function error($error = array()): array
     {
+        $this->status = $error['status'];
+        $this->appCode = $error['appCode'];
+
         $this->error = array(
-            'status' => $this->status,// http error code
-            'code' => $this->appCode, // application code
-            'title' => 'Not Found',
-            'details' => 'There is no records matched with your request in our database'
+            'status' => $error['status'],// http error code
+            'code' => $error['appCode'], // application code
+            'title' => $error['title'],
+            'details' => $error['details']
         );
 
         return $this->error;

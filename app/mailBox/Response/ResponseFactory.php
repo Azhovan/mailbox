@@ -9,7 +9,10 @@ use Exception;
 
 class ResponseFactory
 {
+
+    /** @var string strategies namespace  */
     const STRATEGIES_PREFIX = 'App\mailBox\Response\Strategy\Response';
+
     /** @var  ResponseFactory */
     private static $instance;
 
@@ -37,6 +40,7 @@ class ResponseFactory
     /**
      * @param array $data
      * @return mixed
+     * @throws Exception
      */
     public function create($data = array())
     {
@@ -44,6 +48,7 @@ class ResponseFactory
         $class = self::STRATEGIES_PREFIX . $resourceType;
 
         try {
+            // load strategy based on different request types
             $strategy = new $class();
             $response = $strategy->handle($data);
             return $this->response($response);
