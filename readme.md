@@ -50,11 +50,14 @@ the base url should be very simple and intuitive, so it just contains domain (**
 * **HATEOAS** : any GET response contains a unique url to that resourse
 * **Response Format** : as a standard response, I followed up the [jsonapi.com](http://jsonapi.com) as data model (also for error and meta block)
 
-| Http Method   |  Request                                                     | Description                                  |
-| ------------- |:------------------------------------------------------------:| --------------------------------------------:|
-| GET           | /api/v1/messages/{uid}                                       | get a message with specific uid|
-| GET           | /api/v1/messages/                                            | get all messages               |
-| GET           | /api/v1/messages/?offset={value}&&limit={value}&&status=read | get messages with custom offset, limit and status (read, unread, archived) |
-| PUT           | api/v1/messages/{uid}/{new status}                           | update the status of custom email with uid identifier and new status (read, unread, archived) |
+| Http Method   |  Request                                                       | Description                                  |
+| ------------- |:--------------------------------------------------------------:| --------------------------------------------:|
+| *GET*           | /api/v1/messages/{uid}                                       | get a message with specific uid|
+| *GET*           | /api/v1/messages/                                            | get all messages               |
+| *GET*           | /api/v1/messages/?offset={value}&&limit={value}&&status=read | get messages with custom offset, limit and status (read, unread, archived) |
+| *PUT*           | api/v1/messages/{uid}/{new status}                           | update the status of custom email with uid identifier and new status (read, unread, archived) |
 
- 
+examples : 
+ * PUT /api/v1/messages/24/archived
+ * GET /api/messages/?offset=0&&limit=10&&status=read
+ * GET /api/v1/messages 
