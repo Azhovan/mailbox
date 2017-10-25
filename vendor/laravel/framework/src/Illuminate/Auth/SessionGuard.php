@@ -291,7 +291,6 @@ class SessionGuard implements StatefulGuard, SupportsBasicAuth
     public function onceBasic($field = 'email', $extraConditions = [])
     {
         $credentials = $this->basicCredentials($this->getRequest(), $field);
-
         if (! $this->once(array_merge($credentials, $extraConditions))) {
             return $this->failedBasicResponse();
         }
