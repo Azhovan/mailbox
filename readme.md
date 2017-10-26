@@ -9,7 +9,7 @@
 * php artisan key:generate
 
 #### seed database 
-in the root of the projects run below commands 
+in the root of the projects run below commands ( please make sure you configure your data base in .env file )
 * php artisan migrate
 * php artisan db:seed
 > by running the above commands data (messages_sample.json) will be inserted in the database and a user will be created for using the api, please use **username: test@oberlo.com** and **password: oberlo**
@@ -48,7 +48,7 @@ the base url should be very simple and intuitive, so it just contains domain (**
 
 * **Pagination, Filtering** as a best practice pagination and filtering was included in url
 * **versioning** : the version attached to base url
-* **Error Codes** two type of codes implemented 
+* **Error Codes** two types of error code implemented 
  - Http response code 
  - Application response code
 * **HATEOAS** : any GET response contains a unique url to that resourse
@@ -58,8 +58,8 @@ the base url should be very simple and intuitive, so it just contains domain (**
 | ------------- |:--------------------------------------------------------------:| --------------------------------------------:|
 | *GET*           | /api/v1/messages/{uid}                                       | get a message with specific uid|
 | *GET*           | /api/v1/messages/                                            | get all messages               |
-| *GET*           | /api/v1/messages/?offset={value}&&limit={value}&&status=read | get messages with custom offset, limit and status (read, unread, archived) |
-| *PUT*           | api/v1/messages/{uid}/{new status}                           | update the status of custom email with uid identifier and new status (read, unread, archived) |
+| *GET*           | /api/v1/messages/?offset={value}&&limit={value}&&status={status} | get messages with custom offset, limit and status (read, unread, archived) |
+| *PUT*           | /api/v1/messages/{uid}/{new status}                           | update the status of custom email with uid identifier and new status (read, unread, archived) |
 
 examples : 
  * PUT **/api/v1/messages/24/archived**  (this will update the status of a mesage with id 24)
