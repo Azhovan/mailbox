@@ -12,7 +12,7 @@
 in the root of the projects run below commands ( please make sure you configure your data base in .env file )
 * php artisan migrate
 * php artisan db:seed
-> by running the above commands data (messages_sample.json) will be inserted in the database and a user will be created for using the api, please use **username: test@oberlo.com** and **password: oberlo**
+> by running the above commands data (messages_sample.json) will be inserted in the database and a user will be created for using the api
 
  #### Authentication
  This project uses Basic Authentication, it means there is no saved sessions, and all requests should contains username and password
@@ -34,7 +34,6 @@ inside the app/mailBox you can find these files and folders :
 * **Model** // database model
 * **Response** // classes which are responsible to generate output based on different strategies
 * **Services** // message abstraction and it's services
-* 
 ---- 
 #### Approach
 the approach of creating the api can be summarized as below
